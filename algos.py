@@ -301,11 +301,11 @@ def reduce_then_cluster(X,y, dataset_name):
     expectation_maximization(X_transformed, y, dataset_name + ' - After PCA (n_components=2)')
 
     # Then, PCA n=3
-    # pca = PCA(n_components=3)
-    # X_transformed = pca.fit_transform(X)
+    pca = PCA(n_components=3)
+    X_transformed = pca.fit_transform(X)
 
-    # kmeans(X_transformed, y, dataset_name + ' - After PCA (n_components=3)')
-    # expectation_maximization(X_transformed, y, dataset_name + ' - After PCA (n_components=3)')
+    kmeans(X_transformed, y, dataset_name + ' - After PCA (n_components=3)')
+    expectation_maximization(X_transformed, y, dataset_name + ' - After PCA (n_components=3)')
 
     # ICA, n=2
     ica = FastICA(n_components=2)
@@ -315,11 +315,11 @@ def reduce_then_cluster(X,y, dataset_name):
     expectation_maximization(X_transformed, y, dataset_name + ' - After ICA (n_components=2)')
 
     # ICA, n=3
-    # ica = FastICA(n_components=2)
-    # X_transformed = ica.fit_transform(X)
+    ica = FastICA(n_components=2)
+    X_transformed = ica.fit_transform(X)
 
-    # kmeans(X_transformed, y, dataset_name + ' - After ICA (n_components=3)')
-    # expectation_maximization(X_transformed, y, dataset_name + ' - After ICA (n_components=3)')
+    kmeans(X_transformed, y, dataset_name + ' - After ICA (n_components=3)')
+    expectation_maximization(X_transformed, y, dataset_name + ' - After ICA (n_components=3)')
 
     # Random Projections, n=2
     rand = GaussianRandomProjection(n_components=2, random_state=65)
@@ -328,10 +328,10 @@ def reduce_then_cluster(X,y, dataset_name):
     expectation_maximization(X_transformed, y, dataset_name + ' - After Gaussian Random Projection (n_components=2)')
 
     # Random Projections, n=3
-    # rand = GaussianRandomProjection(n_components=3, random_state=65)
-    # X_transformed = rand.fit_transform(X)
-    # kmeans(X_transformed, y, dataset_name + ' - After Gaussian Random Projection (n_components=3)')
-    # expectation_maximization(X_transformed, y, dataset_name + ' - After Gaussian Random Projection (n_components=3)')
+    rand = GaussianRandomProjection(n_components=3, random_state=65)
+    X_transformed = rand.fit_transform(X)
+    kmeans(X_transformed, y, dataset_name + ' - After Gaussian Random Projection (n_components=3)')
+    expectation_maximization(X_transformed, y, dataset_name + ' - After Gaussian Random Projection (n_components=3)')
 
     # Select K best, k=2
     select = SelectKBest(f_classif, k=2)
@@ -340,10 +340,10 @@ def reduce_then_cluster(X,y, dataset_name):
     expectation_maximization(X_transformed, y, dataset_name + ' - After 2 Best Features Selected')
 
     # Select K best, k=3
-    # select = SelectKBest(f_classif, k=3)
-    # X_transformed = select.fit_transform(X,y)
-    # kmeans(X_transformed, y, dataset_name + ' - After 3 Best Features Selected')
-    # expectation_maximization(X_transformed, y, dataset_name + ' - After 3 Best Features Selected')
+    select = SelectKBest(f_classif, k=3)
+    X_transformed = select.fit_transform(X,y)
+    kmeans(X_transformed, y, dataset_name + ' - After 3 Best Features Selected')
+    expectation_maximization(X_transformed, y, dataset_name + ' - After 3 Best Features Selected')
 
 def run_neural_net(X,y, finalX, finalY):
     clf = MLPClassifier(hidden_layer_sizes=(100,), max_iter=500)

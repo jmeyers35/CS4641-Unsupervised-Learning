@@ -19,14 +19,14 @@ def load_data():
 
 def main():
     X,y = load_data()
-    visualize_data_2D(X,y, 'Car')
-    visualize_data_3D(X,y, 'Car')
-    kmeans(X,y, 'Car')
-    expectation_maximization(X,y, 'Car')
-    pca(X,y,'Car')
-    ica(X,y, 'Car')
-    randomized_projection(X,y, 'Car')
-    select_k_best(X,y, 'Car')
+    #visualize_data_2D(X,y, 'Car')
+    #visualize_data_3D(X,y, 'Car')
+    #kmeans(X,y, 'Car')
+    #expectation_maximization(X,y, 'Car')
+    #pca(X,y,'Car')
+    #ica(X,y, 'Car')
+    #randomized_projection(X,y, 'Car')
+    #elect_k_best(X,y, 'Car')
     reduce_then_cluster(X,y, 'Car')
 
 if __name__ == "__main__":
