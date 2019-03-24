@@ -87,6 +87,23 @@ def kmeans(X,y, dataset_name):
     plt.legend(loc='upper left')
     plt.show()
 
+    # print('generating cluster visualization')
+    # kmeans = KMeans(n_clusters=6, max_iter=1000)
+    # predicted_labels = kmeans.fit_predict(X)
+    # centers = kmeans.cluster_centers_
+    # plt.figure()
+    # fig = plt.figure(1, figsize=(4, 3))
+    # plt.clf()
+    # ax = Axes3D(fig, rect=[0,0,.95,1], elev=48, azim=134)
+    # plt.cla()
+    # plt.title('Clusters produced by K-Means(K=6): {} Data'.format(dataset_name))
+    # ax.scatter(X[:, 0], X[:, 1], X[:, 2], c=predicted_labels)
+    # ax.scatter(centers[:, 0], centers[:, 1], centers[:, 2], c='black', s=200, alpha=0.5)
+    # ax.w_xaxis.set_ticklabels([])
+    # ax.w_yaxis.set_ticklabels([])
+    # ax.w_zaxis.set_ticklabels([])
+    # plt.show()
+
 
 def expectation_maximization(X,y,dataset_name):
     X_train, X_test, y_train, y_test = train_test_split(X,y, random_state=65)
@@ -226,7 +243,7 @@ def ica(X,y, dataset_name):
     plt.show()
 
 def randomized_projection(X,y, dataset_name):
-    rand = GaussianRandomProjection(n_components=2, random_state=65)
+    rand = GaussianRandomProjection(n_components=2)
 
     X_transformed = rand.fit_transform(X)
     plt.figure()
@@ -234,7 +251,7 @@ def randomized_projection(X,y, dataset_name):
     plt.scatter(X_transformed[:, 0], X_transformed[:, 1], c=y)
     plt.show()
 
-    rand = GaussianRandomProjection(n_components=3, random_state=65)
+    rand = GaussianRandomProjection(n_components=3)
     X_transformed = rand.fit_transform(X)
     # Visualize transformed data
     plt.figure()
@@ -277,56 +294,56 @@ def select_k_best(X,y, dataset_name):
 
 def reduce_then_cluster(X,y, dataset_name):
     # First, PCA n=2
-    # pca = PCA(n_components=2)
-    # X_transformed = pca.fit_transform(X)
-
-    # kmeans(X_transformed, y, dataset_name + ' - After PCA (n_components=2)')
-    # expectation_maximization(X_transformed, y, dataset_name + ' - After PCA (n_components=2)')
-
-    # Then, PCA n=3
-    pca = PCA(n_components=3)
+    pca = PCA(n_components=2)
     X_transformed = pca.fit_transform(X)
 
-    kmeans(X_transformed, y, dataset_name + ' - After PCA (n_components=3)')
-    expectation_maximization(X_transformed, y, dataset_name + ' - After PCA (n_components=3)')
+    kmeans(X_transformed, y, dataset_name + ' - After PCA (n_components=2)')
+    expectation_maximization(X_transformed, y, dataset_name + ' - After PCA (n_components=2)')
+
+    # Then, PCA n=3
+    # pca = PCA(n_components=3)
+    # X_transformed = pca.fit_transform(X)
+
+    # kmeans(X_transformed, y, dataset_name + ' - After PCA (n_components=3)')
+    # expectation_maximization(X_transformed, y, dataset_name + ' - After PCA (n_components=3)')
 
     # ICA, n=2
-    # ica = FastICA(n_components=2)
-    # X_transformed = ica.fit_transform(X)
-
-    # kmeans(X_transformed, y, dataset_name + ' - After ICA (n_components=2)')
-    # expectation_maximization(X_transformed, y, dataset_name + ' - After ICA (n_components=2)')
-
-    # ICA, n=3
     ica = FastICA(n_components=2)
     X_transformed = ica.fit_transform(X)
 
-    kmeans(X_transformed, y, dataset_name + ' - After ICA (n_components=3)')
-    expectation_maximization(X_transformed, y, dataset_name + ' - After ICA (n_components=3)')
+    kmeans(X_transformed, y, dataset_name + ' - After ICA (n_components=2)')
+    expectation_maximization(X_transformed, y, dataset_name + ' - After ICA (n_components=2)')
+
+    # ICA, n=3
+    # ica = FastICA(n_components=2)
+    # X_transformed = ica.fit_transform(X)
+
+    # kmeans(X_transformed, y, dataset_name + ' - After ICA (n_components=3)')
+    # expectation_maximization(X_transformed, y, dataset_name + ' - After ICA (n_components=3)')
 
     # Random Projections, n=2
-    # rand = GaussianRandomProjection(n_components=2, random_state=65)
-    # X_transformed = rand.fit_transform(X)
-    # kmeans(X_transformed, y, dataset_name + ' - After Gaussian Random Projection (n_components=2)')
-    # expectation_maximization(X_transformed, y, dataset_name + ' - After Gaussian Random Projection (n_components=2)')
+    rand = GaussianRandomProjection(n_components=2, random_state=65)
+    X_transformed = rand.fit_transform(X)
+    kmeans(X_transformed, y, dataset_name + ' - After Gaussian Random Projection (n_components=2)')
+    expectation_maximization(X_transformed, y, dataset_name + ' - After Gaussian Random Projection (n_components=2)')
 
     # Random Projections, n=3
-    rand = GaussianRandomProjection(n_components=3, random_state=65)
-    X_transformed = rand.fit_transform(X)
-    kmeans(X_transformed, y, dataset_name + ' - After Gaussian Random Projection (n_components=3)')
-    expectation_maximization(X_transformed, y, dataset_name + ' - After Gaussian Random Projection (n_components=3)')
+    # rand = GaussianRandomProjection(n_components=3, random_state=65)
+    # X_transformed = rand.fit_transform(X)
+    # kmeans(X_transformed, y, dataset_name + ' - After Gaussian Random Projection (n_components=3)')
+    # expectation_maximization(X_transformed, y, dataset_name + ' - After Gaussian Random Projection (n_components=3)')
 
     # Select K best, k=2
-    # select = SelectKBest(f_classif, k=2)
-    # X_transformed = select.fit_transform(X,y)
-    # kmeans(X_transformed, y, dataset_name + ' - After 2 Best Features Selected')
-    # expectation_maximization(X_transformed, y, dataset_name + ' - After 2 Best Features Selected')
+    select = SelectKBest(f_classif, k=2)
+    X_transformed = select.fit_transform(X,y)
+    kmeans(X_transformed, y, dataset_name + ' - After 2 Best Features Selected')
+    expectation_maximization(X_transformed, y, dataset_name + ' - After 2 Best Features Selected')
 
     # Select K best, k=3
-    select = SelectKBest(f_classif, k=3)
-    X_transformed = select.fit_transform(X,y)
-    kmeans(X_transformed, y, dataset_name + ' - After 3 Best Features Selected')
-    expectation_maximization(X_transformed, y, dataset_name + ' - After 3 Best Features Selected')
+    # select = SelectKBest(f_classif, k=3)
+    # X_transformed = select.fit_transform(X,y)
+    # kmeans(X_transformed, y, dataset_name + ' - After 3 Best Features Selected')
+    # expectation_maximization(X_transformed, y, dataset_name + ' - After 3 Best Features Selected')
 
 def run_neural_net(X,y, finalX, finalY):
     clf = MLPClassifier(hidden_layer_sizes=(100,), max_iter=500)
